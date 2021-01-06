@@ -55,9 +55,6 @@ deploy:
     artifact: Squirrel Installer, Squirrel nupkg, Squirrel RELEASES
     draft: true
     force_update: true
-    on:
-      APPVEYOR_REPO_BRANCH: master
-      APPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH: test_branch
 
   - provider: GitHub
     release: v$(flowVersion)
