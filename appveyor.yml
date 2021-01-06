@@ -4,6 +4,8 @@ init:
 - ps: |
       $version = new-object System.Version $env:APPVEYOR_BUILD_VERSION
       $env:flowVersion = "{0}.{1}.{2}" -f $version.Major, $version.Minor, $version.Build
+      Write-Host APPVEYOR_REPO_BRANCH=$env:APPVEYOR_REPO_BRANCH
+      Write-Host APPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH=$env:APPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH
 - sc config WSearch start= auto # Starts Windows Search service- Needed for running ExplorerTest
 - net start WSearch
 
@@ -55,6 +57,9 @@ deploy:
     artifact: Squirrel Installer, Squirrel nupkg, Squirrel RELEASES
     draft: true
     force_update: true
+    on:
+      branch: test_branch
+      APPVEYOR_REPO_BRANCH: 'master'
 
   - provider: GitHub
     release: v$(flowVersion)
